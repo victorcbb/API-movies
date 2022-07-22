@@ -5,7 +5,7 @@ const AppError = require('../utils/AppError')
 class NotesController {
   async create(req, res) {
     const { title, description, rating, tags } = req.body
-    const { user_id } = req.params
+    const user_id = req.user.id
 
     if (rating > 5 || rating < 1) {
       throw new AppError("Insira um valor entre 1 e 5.")
@@ -52,7 +52,8 @@ class NotesController {
   }
 
   async index(req, res) {
-    const { title, user_id, tags } = req.query
+    const { title, tags } = req.query
+    const user_id = req.user.id
 
     let notes
 
